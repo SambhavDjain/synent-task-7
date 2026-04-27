@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduManage - Student Management System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <i class="fa-solid fa-graduation-cap"></i>
+                <h2>EduManage</h2>
+            </div>
+            <nav>
+                <ul>
+                    <li class="active"><a href="#"><i class="fa-solid fa-table-columns"></i> Dashboard</a></li>
+                </ul>
+            </nav>
+            <div class="sidebar-actions">
+                <button id="exportBtn" class="btn-secondary"><i class="fa-solid fa-download"></i> Export JSON</button>
+                <button id="importBtn" class="btn-secondary"><i class="fa-solid fa-upload"></i> Import JSON</button>
+                <input type="file" id="fileInput" accept=".json" style="display: none;">
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header>
+                <div>
+                    <h1>Students Dashboard</h1>
+                    <p class="subtitle">Manage and track student records easily</p>
+                </div>
+                <div class="header-actions">
+                    <div class="search-bar">
+                        <i class="fa-solid fa-search"></i>
+                        <input type="text" id="searchInput" placeholder="Search students...">
+                    </div>
+                    <button id="addStudentBtn" class="btn-primary"><i class="fa-solid fa-plus"></i> Add Student</button>
+                </div>
+            </header>
+
+            <section class="table-container glass-panel">
+                <table id="studentsTable">
+                    <thead>
+                        <tr>
+                            <th>Student ID</th>
+                            <th>Name</th>
+                            <th>Age</th>
+                            <th>Grade</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="studentsBody">
+                        <!-- Student rows will be injected here via JS -->
+                    </tbody>
+                </table>
+                <div id="emptyState" class="empty-state" style="display: none;">
+                    <div class="empty-icon"><i class="fa-solid fa-folder-open"></i></div>
+                    <h3>No students found</h3>
+                    <p>Add a student or import a JSON file to get started.</p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Add/Edit Modal -->
+    <div id="studentModal" class="modal-overlay">
+        <div class="modal glass-panel">
+            <div class="modal-header">
+                <h2 id="modalTitle">Add New Student</h2>
+                <button id="closeModalBtn" class="icon-btn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form id="studentForm">
+                <input type="hidden" id="formMode" value="add">
+                <input type="hidden" id="originalId" value="">
+                
+                <div class="form-group">
+                    <label for="studentId">Student ID <span class="required">*</span></label>
+                    <input type="text" id="studentId" required placeholder="e.g. S1001">
+                    <small class="error-msg" id="idError"></small>
+                </div>
+                
+                <div class="form-group">
+                    <label for="studentName">Full Name <span class="required">*</span></label>
+                    <input type="text" id="studentName" required placeholder="e.g. Jane Doe">
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="studentAge">Age <span class="required">*</span></label>
+                        <input type="number" id="studentAge" required min="1" max="100" placeholder="e.g. 20">
+                    </div>
+                    <div class="form-group">
+                        <label for="studentGrade">Grade/Class <span class="required">*</span></label>
+                        <input type="text" id="studentGrade" required placeholder="e.g. 10th Grade">
+                    </div>
+                </div>
+                
+                <div class="modal-footer">
+                    <button type="button" id="cancelBtn" class="btn-secondary">Cancel</button>
+                    <button type="submit" class="btn-primary">Save Student</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div id="deleteModal" class="modal-overlay">
+        <div class="modal glass-panel delete-modal">
+            <div class="warning-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+            <h2>Delete Student?</h2>
+            <p>Are you sure you want to delete <strong id="deleteStudentName"></strong>? This action cannot be undone.</p>
+            <div class="modal-footer">
+                <button type="button" id="cancelDeleteBtn" class="btn-secondary">Cancel</button>
+                <button type="button" id="confirmDeleteBtn" class="btn-danger">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
