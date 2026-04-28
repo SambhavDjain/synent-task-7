@@ -39,7 +39,7 @@ Since the application uses standard web technologies, there's no complex setup r
    python -m http.server 8000
    ```
 
-## 📂 File Structure
+## 📂File Structure
 
 - `index.html`: The core HTML template.
 - `style.css`: All styling, theming, and layout rules.
